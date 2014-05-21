@@ -174,6 +174,15 @@ var asin = function(n){
     }
     return Math.asin(n);
 }
+var getItem = function(key){
+    return(localStorage.getItem(key));
+}
+var setItem = function(key,val){
+    localStorage.setItem(key,val);
+}
+var deleteItem = function(key){
+    localStorage.deleteItem(key);
+}
 window.onload=function(){
     if(draw!==undefined){
         setInterval(draw,1000/30);
