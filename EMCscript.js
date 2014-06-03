@@ -1,8 +1,8 @@
 //Coding library
 var m_canvas = document.getElementById("canvas");
 var ct = m_canvas.getContext("2d");
-var b1 = document.getElementById("b1");
-var b2 = document.getElementById("b2");
+var button1 = document.getElementById("b1");
+var button2 = document.getElementById("b2");
 var mouseIsPressed = false;
 var mouseMoved = false;
 var mouseX = 0;
@@ -57,19 +57,19 @@ m_canvas.onmousemove = function(){
 };
 var fill = function(r,g,b,a){
     if(a!=undefined){
-        ct.fillStyle = "rgba("+r+","+g+","+b+","+a/255+")";
+        ct.fillStyle = "rgba("+round(r)+","+round(g)+","+round(b)+","+a/255+")";
     }
     else{
-        ct.fillStyle = "rgb("+r+","+g+","+b+")";
+        ct.fillStyle = "rgb("+round(r)+","+round(g)+","+round(b)+")";
     }
     
 };
 var stroke = function(r,g,b,a){
     if(a!=undefined){
-        ct.strokeStyle = "rgba("+r+","+g+","+b+","+a/255+")";
+        ct.strokeStyle = "rgba("+round(r)+","+round(g)+","+round(b)+","+a/255+")";
     }
     else{
-        ct.strokeStyle = "rgb("+r+","+g+","+b+")";
+        ct.strokeStyle = "rgb("+round(r)+","+round(g)+","+round(b)+")";
     }
 };
 var strokeWeight = function(n){
@@ -199,6 +199,12 @@ var getItem = function(key){
 var setItem = function(key,val){
     localStorage.setItem(key,JSON.stringify(val));
 }
+var startItem = function(key,val){
+    if(getItem(key)===undefined){
+        setItem(key,val);
+    }
+    return getItem(key);
+}
 var deleteItem = function(key){
     localStorage.removeItem(key);
 }
@@ -215,8 +221,12 @@ Audio.prototype.stop = function(){
 strokeCap("round");
 stroke(0,0,0);
 fill(255,255,255);
+var VIEWS = startItem("views",0);
+var frameRate = 30;
 window.onload=function(){
+    VIEWS++;
+    setItem("views",VIEWS);
     if(draw!==undefined){
-        setInterval(draw,1000/30);
+        setInterval(draw,1000/frameRate);
     }
 };
